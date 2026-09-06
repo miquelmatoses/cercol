@@ -64,8 +64,15 @@ export const RENOTIFY_DAYS = 14
  * views to it put it in the traffic-derived candidate list, and the
  * 2026-08-30 run spent a slot on /new-moon/results the same way. A page
  * dropped here is never inspected, so it can never be reported.
+ *
+ * /full-moon (the page itself, not just its results view) is here too: it
+ * redirects an anonymous visitor to /auth and is deliberately absent from
+ * the sitemap (see the note in scripts/generate-sitemap.mjs), so Google's
+ * answer for it is "url is unknown to google" forever. Logged-in visitors'
+ * page views kept feeding it into the traffic-derived candidate list, and
+ * the 2026-09-06 snapshot spent one of the six inspection slots on it.
  */
-export const NON_PUBLIC_PATH = /^(?:\/[a-z]{2})?\/(?:admin|auth|my-results|profile|groups|witness|witness-setup|(?:new-moon|first-quarter|full-moon|last-quarter)\/results)(?:\/|$)/
+export const NON_PUBLIC_PATH = /^(?:\/[a-z]{2})?\/(?:admin|auth|my-results|profile|groups|witness|witness-setup|full-moon|(?:new-moon|first-quarter|last-quarter)\/results)(?:\/|$)/
 
 /** Google's verdict strings, shortened for a line in an email. */
 const clean = (s) => String(s || '').replace(/_/g, ' ').toLowerCase()

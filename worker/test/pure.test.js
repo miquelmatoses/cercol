@@ -340,10 +340,14 @@ describe('indexing', () => {
     // and /witness pages exist only behind a personal invitation token; the
     // 2026-08-30 run spent a slot on /new-moon/results because visitors'
     // page views put it in the traffic-derived candidate list.
-    for (const p of ['/admin', '/admin/', '/admin/jobs', '/auth', '/auth/callback', '/my-results', '/ca/admin', '/new-moon/results', '/new-moon/results/', '/first-quarter/results/', '/full-moon/results', '/profile', '/groups', '/groups/7', '/witness/abc123', '/witness-setup', '/es/full-moon/results/']) {
+    // /full-moon itself (not just its results view) redirects an anonymous
+    // visitor to /auth and is deliberately absent from the sitemap, so the
+    // 2026-09-06 snapshot's slot on it answered "url is unknown to google"
+    // and always will.
+    for (const p of ['/admin', '/admin/', '/admin/jobs', '/auth', '/auth/callback', '/my-results', '/ca/admin', '/new-moon/results', '/new-moon/results/', '/first-quarter/results/', '/full-moon/results', '/full-moon', '/full-moon/', '/es/full-moon', '/profile', '/groups', '/groups/7', '/witness/abc123', '/witness-setup', '/es/full-moon/results/']) {
       expect(NON_PUBLIC_PATH.test(p)).toBe(true)
     }
-    for (const p of ['/', '/blog/what-is-a-facet-in-personality-psychology/', '/ca/blog/team-roles/', '/full-moon', '/new-moon', '/first-quarter/', '/administrators/', '/for-organizations']) {
+    for (const p of ['/', '/blog/what-is-a-facet-in-personality-psychology/', '/ca/blog/team-roles/', '/new-moon', '/first-quarter/', '/administrators/', '/for-organizations']) {
       expect(NON_PUBLIC_PATH.test(p)).toBe(false)
     }
   })
